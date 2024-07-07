@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +35,9 @@
             box-shadow: 0 0 0 0.2rem rgba(70, 236, 134, 0.5); 
         }
 
-
+        #flagImg {
+            object-position: center;
+        }
 
         @keyframes example {
             0% {
@@ -71,22 +72,30 @@
         }
     </style>
 </head>
-
 <body>
     <div class="container mt-4">
         <div class="d-flex mb-4">
             <input id="txtInput" class="form-control me-2" type="search" placeholder="Search for a country" aria-label="Search">
-            <button class="btn btn-outline-success" id="searchBtn" type="button">Search</button>
+            <button class="btn" id="searchBtn" type="button">Search</button>
         </div>
 
         <div class="container mb-5" id="resultContainer" style="display: none;">
-            <div class="row">
-                <img class="img-thumbnail col-3" id="flagImg" src="" alt="Country flag">
-                <div class="col-9">
-                    <h1 id="name">Name</h1>
-                    <p id="officialName">Official Name</p>
-                    <p id="region">Region</p>
-                    <p id="population">Population</p>
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img id="flagImg" src="" class="img-fluid rounded-start" alt="Country flag">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title" id="name">Name</h5>
+                            <p class="card-text"><strong>Official Name:</strong> <span id="officialName">Official Name</span></p>
+                            <p class="card-text"><strong>Region:</strong> <span id="region">Region</span></p>
+                            <p class="card-text"><strong>Population:</strong> <span id="population">Population</span></p>
+                            <p class="card-text"><strong>Currencies:</strong> <span id="currencies">Currencies</span></p>
+                            <p class="card-text"><strong>Languages:</strong> <span id="languages">Languages</span></p>
+                            <p class="card-text"><strong>Timezones:</strong> <span id="timezones">Timezones</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,5 +108,4 @@
 
     <script src="app.js"></script>
 </body>
-
 </html>

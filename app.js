@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             let cardBody = "";
             data.forEach(country => {
+                const currencies = country.currencies ? Object.values(country.currencies).map(currency => currency.name).join(', ') : 'N/A';
+                const languages = country.languages ? Object.values(country.languages).join(', ') : 'N/A';
+
                 cardBody += `
                     <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card h-100">
@@ -15,9 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <p class="card-text">
                                     <strong>Official Name:</strong> ${country.name.official}<br>
                                     <strong>Region:</strong> ${country.region}<br>
-                                    <strong>Population:</strong> ${country.population}
+                                    <strong>Population:</strong> ${country.population}<br>
+                                    <strong>Currencies:</strong> ${currencies}<br>
+                                    <strong>Languages:</strong> ${languages}<br>
+                                    <strong>Timezones:</strong> ${country.timezones.join(', ')}
                                 </p>
-                                <a href="${country.maps.googleMaps}" class="btn btn-primary" target="_blank">Go to Map</a>
+                                <a href="${country.maps.googleMaps}" class="btn btn-primary" target="_blank">Location</a>
                             </div>
                         </div>
                     </div>
@@ -38,17 +44,26 @@ function searchCountry() {
     const officialName = document.getElementById("officialName");
     const region = document.getElementById("region");
     const population = document.getElementById("population");
+    const currencies = document.getElementById("currencies");
+    const languages = document.getElementById("languages");
+    const timezones = document.getElementById("timezones");
 
     fetch(`https://restcountries.com/v3.1/name/${userInput}`)
         .then(res => res.json())
         .then(data => {
-            data.forEach(country => {
-                flagImg.src = country.flags.png;
-                name.innerText = country.name.common;
-                officialName.innerText = country.name.official;
-                region.innerText = country.region;
-                population.innerText = country.population;
-            });
+            const country = data[0];
+            const countryCurrencies = country.currencies ? Object.values(country.currencies).map(currency => currency.name).join(', ') : 'N/A';
+            const countryLanguages = country.languages ? Object.values(country.languages).join(', ') : 'N/A';
+
+            flagImg.src = country.flags.png;
+            name.innerText = country.name.common;
+            officialName.innerText = country.name.official;
+            region.innerText = country.region;
+            population.innerText = country.population;
+            currencies.innerText = countryCurrencies;
+            languages.innerText = countryLanguages;
+            timezones.innerText = country.timezones.join(', ');
+
             resultContainer.style.display = "block";
         })
         .catch(error => {
